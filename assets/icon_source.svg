@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#5C4FCF" rx="0"/>
+  <!-- Music note icon (based on Material Icons music_note_rounded) -->
+  <!-- Scaled to ~500px centered at 512,512 -->
+  <!-- Original Material icon viewBox 0 0 24 24, scaled by ~20.83x, offset to center -->
+  <g transform="translate(512,512) scale(20.83) translate(-12,-12)">
+    <!-- music_note path from Material Icons -->
+    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="white"/>
+  </g>
+</svg>
