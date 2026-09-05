@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _kSaved = 'saved_chords';
+const _kSavedProgressions = 'saved_progressions';
 const _kStreak = 'streak_count';
 const _kLastOpen = 'last_open_date';
 
@@ -13,9 +14,28 @@ class StorageService {
   static final ValueNotifier<Set<String>> savedChords =
       ValueNotifier<Set<String>>({});
 
+  // Saved progressions, stored as 'progressionId|keyRoot' (e.g. 'c1_1|G').
+  static final ValueNotifier<Set<String>> savedProgressions =
+      ValueNotifier<Set<String>>({});
+
   static Future<void> init() async {
     _prefs ??= await SharedPreferences.getInstance();
     savedChords.value = _p.getStringList(_kSaved)?.toSet() ?? {};
+    savedProgressions.value = _p.getStringList(_kSavedProgressions)?.toSet() ?? {};
+  }
+
+  static String progressionEntry(String progressionId, String keyRoot) =>
+      '$progressionId|$keyRoot';
+
+  static bool isProgressionSaved(String progressionId, String keyRoot) =>
+      savedProgressions.value.contains(progressionEntry(progressionId, keyRoot));
+
+  static Future<void> toggleSaveProgression(String progressionId, String keyRoot) async {
+    final entry = progressionEntry(progressionId, keyRoot);
+    final saved = Set<String>.from(savedProgressions.value);
+    if (!saved.remove(entry)) saved.add(entry);
+    await _p.setStringList(_kSavedProgressions, saved.toList());
+    savedProgressions.value = saved;
   }
 
   static SharedPreferences get _p {

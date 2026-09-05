@@ -119,7 +119,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   tooltip: 'Play chord',
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 8),
+              Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _SquareActionButton(
+                      icon: Icons.shuffle_rounded,
+                      filled: true,
+                      onTap: _shuffle,
+                      tooltip: 'Shuffle chord',
+                    ),
+                    const SizedBox(width: 12),
+                    _SquareActionButton(
+                      icon: _saved ? Icons.star_rounded : Icons.star_border_rounded,
+                      filled: _saved,
+                      onTap: _toggleSave,
+                      tooltip: 'Save chord',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
               const Text(
                 'WHERE YOU\'LL FIND THIS CHORD',
                 style: TextStyle(
@@ -195,47 +216,45 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   )),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: _shuffle,
-                      icon: const Icon(Icons.shuffle_rounded),
-                      label: const Text(
-                        'Shuffle',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      style: FilledButton.styleFrom(
-                        backgroundColor: const Color(0xFF5C4FCF),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  GestureDetector(
-                    onTap: _toggleSave,
-                    child: Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: _saved ? const Color(0xFF5C4FCF) : const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Icon(
-                        _saved ? Icons.star_rounded : Icons.star_border_rounded,
-                        color: _saved ? Colors.white : const Color(0xFF888888),
-                        size: 28,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(height: 32),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SquareActionButton extends StatelessWidget {
+  final IconData icon;
+  final bool filled;
+  final VoidCallback onTap;
+  final String tooltip;
+
+  const _SquareActionButton({
+    required this.icon,
+    required this.filled,
+    required this.onTap,
+    required this.tooltip,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 52,
+          height: 52,
+          decoration: BoxDecoration(
+            color: filled ? const Color(0xFF5C4FCF) : const Color(0xFFF5F5F5),
+            borderRadius: BorderRadius.circular(14),
+          ),
+          child: Icon(
+            icon,
+            color: filled ? Colors.white : const Color(0xFF888888),
+            size: 28,
           ),
         ),
       ),

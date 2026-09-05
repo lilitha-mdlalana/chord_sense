@@ -232,6 +232,20 @@ String _parentKey(String key, String suffix) {
   return '$key ${isMinor ? 'Minor' : 'Major'}';
 }
 
+// Public resolver: roman token + key root → concrete chord name ('VIm' + 'C' → 'Am').
+String resolveRomanChord(String roman, String rootKey) {
+  final m = _romanRe.firstMatch(roman);
+  if (m == null) return roman;
+  final accidental = m.group(1)!;
+  final numeral = m.group(2)!;
+  int semitones = _numeralSemitone[numeral]!;
+  if (accidental == 'b') semitones -= 1;
+  if (accidental == '#') semitones += 1;
+  final rootSemitone = _noteToSemitone[rootKey] ?? 0;
+  final note = _semitoneToNote[(rootSemitone + semitones) % 12];
+  return '$note${m.group(3)!}';
+}
+
 String _resolveChord(String roman, String rootKey, String chordName) {
   final m = _romanRe.firstMatch(roman);
   if (m == null) return roman;
@@ -281,6 +295,9 @@ List<ChordMeta> _allChords() {
         roleDesc: meta.roleDesc,
         progressions: _resolveProgressions(meta.progressions, chord.chordKey, chord.name),
         practicePrompt: _resolvePracticePrompt(meta.practicePrompt, chord.name),
+        voicings: chord.chordPositions
+            .map((p) => ChordVoicing(frets: p.frets, fingers: p.fingers, baseFret: p.baseFret))
+            .toList(),
       ));
     }
   }
@@ -305,10 +322,30 @@ ChordMeta getDailyChord() {
   return all[index];
 }
 
+const _enharmonic = {
+  'c#': 'db', 'db': 'c#',
+  'd#': 'eb', 'eb': 'd#',
+  'f#': 'gb', 'gb': 'f#',
+  'g#': 'ab', 'ab': 'g#',
+  'a#': 'bb', 'bb': 'a#',
+};
+
 // Handles display names ('Am', 'C') → library names ('Aminor', 'Cmajor')
 ChordMeta? findChordMeta(String displayName) {
-  final all = getAllChords();
   final lower = displayName.toLowerCase();
+  final found = _findByLower(lower);
+  if (found != null) return found;
+
+  // Retry with the enharmonic spelling of the root ('Db…' ↔ 'C#…')
+  final rootLen = lower.length >= 2 && (lower[1] == '#' || lower[1] == 'b') ? 2 : 1;
+  final alt = _enharmonic[lower.substring(0, rootLen)];
+  if (alt != null) return _findByLower('$alt${lower.substring(rootLen)}');
+
+  return null;
+}
+
+ChordMeta? _findByLower(String lower) {
+  final all = getAllChords();
 
   var found = all.where((c) => c.name.toLowerCase() == lower).firstOrNull;
   if (found != null) return found;

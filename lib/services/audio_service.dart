@@ -33,11 +33,14 @@ class AudioService {
     }
   }
 
-  static Future<void> playChord(ChordMeta chord) async {
+  static Future<void> playChord(ChordMeta chord) =>
+      playFrets(chord.frets, chord.baseFret);
+
+  static Future<void> playFrets(String frets, int baseFret) async {
     await _ensureLoaded();
     if (_sfId == null) return;
 
-    final fretValues = chord.frets.split(' ').map(int.parse).toList();
+    final fretValues = frets.split(' ').map(int.parse).toList();
     final notes = <int>[];
 
     for (int i = 0; i < fretValues.length && i < _openStrings.length; i++) {
@@ -45,7 +48,7 @@ class AudioService {
       if (f == -1) continue;
       final midi = f == 0
           ? _openStrings[i]
-          : _openStrings[i] + (chord.baseFret - 1) + f;
+          : _openStrings[i] + (baseFret - 1) + f;
       notes.add(midi);
     }
 

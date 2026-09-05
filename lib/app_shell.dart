@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chord_sense/screens/home_screen.dart';
+import 'package:chord_sense/screens/progressions_screen.dart';
 import 'package:chord_sense/screens/saved_screen.dart';
 
 class AppShell extends StatefulWidget {
@@ -12,7 +13,7 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   int _index = 0;
 
-  static const _screens = [HomeScreen(), SavedScreen()];
+  static const _screens = [HomeScreen(), ProgressionsScreen(), SavedScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,11 @@ class _AppShellState extends State<AppShell> {
             icon: Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home_rounded),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.queue_music_outlined),
+            activeIcon: Icon(Icons.queue_music_rounded),
+            label: 'Progressions',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star_border_rounded),
