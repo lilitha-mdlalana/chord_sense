@@ -1,4 +1,4 @@
-package com.example.chord_sense
+package com.chordsense.app
 
 import io.flutter.embedding.android.FlutterActivity
 
