@@ -1,21 +1,21 @@
 import 'package:chord_sense/models/chord_data.dart';
 import 'package:chord_sense/services/chord_service.dart';
 
-// Progression catalog seeded from the songbooks:
-// - 'Classics Vol. 1-3' → the nine pop/rock progressions themed around the 1
+// Progression catalog:
+// - 'Essentials I-III' → nine core pop/rock progressions themed around the 1
 //   chord, each playable in all 12 keys with alternate shapes.
-// - 'Style Encyclopedia' → style-based progressions (rock, folk, country,
+// - 'By Style' → style-based progressions (rock, folk, country,
 //   latin, jazz, blues, swing, alternative) incl. minor-key patterns.
 
 const kMajorKeys = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
 const progressionCatalog = <ProgressionDef>[
-  // --- Classics Vol. 1 ---
+  // --- Essentials I ---
   ProgressionDef(
     id: 'c1_1',
     name: 'I – vi – IV – V',
     roman: ['I', 'VIm', 'IV', 'V'],
-    source: 'Classics Vol. 1',
+    source: 'Essentials I',
     styles: ['POP', 'ROCK'],
     description: 'The doo-wop classic — endless 50s and modern pop songs.',
   ),
@@ -23,7 +23,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c1_2',
     name: 'I – V – vi – IV',
     roman: ['I', 'V', 'VIm', 'IV'],
-    source: 'Classics Vol. 1',
+    source: 'Essentials I',
     styles: ['POP'],
     description: 'The four-chord pop loop heard in countless hit songs.',
   ),
@@ -31,17 +31,17 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c1_3',
     name: 'I – IV – V',
     roman: ['I', 'IV', 'V'],
-    source: 'Classics Vol. 1',
+    source: 'Essentials I',
     styles: ['ROCK', 'FOLK', 'COUNTRY'],
     description: 'The three-chord workhorse of rock, folk and country.',
   ),
 
-  // --- Classics Vol. 2 ---
+  // --- Essentials II ---
   ProgressionDef(
     id: 'c2_1',
     name: 'I – vi – ii – V',
     roman: ['I', 'VIm', 'IIm', 'V'],
-    source: 'Classics Vol. 2',
+    source: 'Essentials II',
     styles: ['POP', 'JAZZ', 'LATIN'],
     description: 'The classic turnaround — smooth circle-of-fifths motion home.',
   ),
@@ -49,7 +49,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c2_2',
     name: 'I – IV – vi – V',
     roman: ['I', 'IV', 'VIm', 'V'],
-    source: 'Classics Vol. 2',
+    source: 'Essentials II',
     styles: ['POP', 'ROCK'],
     description: 'Bright start, minor dip, strong resolve — modern pop staple.',
   ),
@@ -57,17 +57,17 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c2_3',
     name: 'I – IV – I – V',
     roman: ['I', 'IV', 'I', 'V'],
-    source: 'Classics Vol. 2',
+    source: 'Essentials II',
     styles: ['POP', 'FOLK'],
     description: 'Rocking between home and the 4 chord before lifting to the 5.',
   ),
 
-  // --- Classics Vol. 3 ---
+  // --- Essentials III ---
   ProgressionDef(
     id: 'c3_1',
     name: 'I – V – vi – iii',
     roman: ['I', 'V', 'VIm', 'IIIm'],
-    source: 'Classics Vol. 3',
+    source: 'Essentials III',
     styles: ['POP'],
     description: 'Descending pop ballad motion — first half of the Pachelbel walk.',
   ),
@@ -75,7 +75,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c3_2',
     name: 'I – IV – ii – V',
     roman: ['I', 'IV', 'IIm', 'V'],
-    source: 'Classics Vol. 3',
+    source: 'Essentials III',
     styles: ['POP', 'JAZZ'],
     description: 'Swaps the vi for a IV — softer route into the ii–V cadence.',
   ),
@@ -83,17 +83,17 @@ const progressionCatalog = <ProgressionDef>[
     id: 'c3_3',
     name: 'I – iii – IV – V',
     roman: ['I', 'IIIm', 'IV', 'V'],
-    source: 'Classics Vol. 3',
+    source: 'Essentials III',
     styles: ['POP', 'SOUL'],
     description: 'Rising stepwise build from home all the way to the 5 chord.',
   ),
 
-  // --- Style Encyclopedia: major keys ---
+  // --- By Style: major keys ---
   ProgressionDef(
     id: 'se_color',
     name: 'Imaj7 – vi7 – ii7 – V7',
     roman: ['Imaj7', 'VIm7', 'IIm7', 'V7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['JAZZ', 'POP'],
     description: 'The turnaround in color chords — 7ths on every degree.',
   ),
@@ -101,7 +101,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_blues7',
     name: 'I7 – IV7 – V7',
     roman: ['I7', 'IV7', 'I7', 'V7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['BLUES', 'ROCK'],
     description: 'The three-chord blues — dominant 7ths all the way through.',
   ),
@@ -109,7 +109,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_12bar',
     name: '12-Bar Blues',
     roman: ['I7', 'IV7', 'I7', 'I7', 'IV7', 'IV7', 'I7', 'I7', 'V7', 'IV7', 'I7', 'V7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['BLUES'],
     description: 'The full 12-bar form — one chord per bar, quick change in bar 2.',
   ),
@@ -117,7 +117,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_swing',
     name: 'Swing (dim7 passing)',
     roman: ['I', '#Idim7', 'IIm7', '#IIdim7', 'I', 'V7', 'IV', 'IIm7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['SWING', 'JAZZ'],
     description: 'Diminished 7th passing chords walk the bass up between degrees.',
   ),
@@ -125,7 +125,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_jazzblues',
     name: 'I – VI7 – ii7 – V7',
     roman: ['I', 'VI7', 'IIm7', 'V7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['JAZZ', 'BLUES'],
     description: 'Jazz-blues turnaround — the VI becomes a secondary dominant.',
   ),
@@ -133,17 +133,17 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_sus4',
     name: 'Isus4 – I – IVsus4 – IV',
     roman: ['Isus4', 'I', 'IVsus4', 'IV', 'Vsus4', 'V'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['ALT ROCK', 'ACOUSTIC'],
     description: 'Acoustic alt-rock suspension moves — each sus4 melts into its chord.',
   ),
 
-  // --- Style Encyclopedia: minor keys ---
+  // --- By Style: minor keys ---
   ProgressionDef(
     id: 'se_min_145',
     name: 'i – iv – v',
     roman: ['Im', 'IVm', 'Vm'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['FOLK', 'ROCK', 'LATIN'],
     description: 'The minor-key three-chord pattern — dark cousin of I–IV–V.',
     minorKey: true,
@@ -152,7 +152,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_min_1563',
     name: 'i – V – VI – III',
     roman: ['Im', 'V7', 'bVI', 'bIII'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['LATIN', 'FOLK'],
     description: 'Minor-key journey out to the relative major and back.',
     minorKey: true,
@@ -161,7 +161,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_min_1346',
     name: 'i – III – IV – VI',
     roman: ['Im', 'bIII', 'IV', 'bVI'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['BLUES', 'ROCK', 'FOLK'],
     description: 'Substitutes a major IV for the usual minor iv — dorian brightness.',
     minorKey: true,
@@ -170,7 +170,7 @@ const progressionCatalog = <ProgressionDef>[
     id: 'se_min_7ths',
     name: 'i7 – iv7 – v7',
     roman: ['Im7', 'IVm7', 'Vm7'],
-    source: 'Style Encyclopedia',
+    source: 'By Style',
     styles: ['JAZZ', 'LATIN'],
     description: 'The minor three-chord pattern in smooth minor 7th voicings.',
     minorKey: true,
@@ -187,9 +187,9 @@ List<String> resolveProgression(ProgressionDef def, String keyRoot) =>
 String keyDisplayName(ProgressionDef def, String keyRoot) =>
     '$keyRoot ${def.minorKey ? 'Minor' : 'Major'}';
 
-// --- Alternate shapes (Classics-style color substitutions) ---
+// --- Alternate shapes (color substitutions) ---
 //
-// The books swap plain triads for sus2/sus4/add9/M9 colors and give minor
+// Swaps plain triads for sus2/sus4/add9/M9 colors and give minor
 // chords 7th/9th/11th extensions. Substitution depends on the chord quality
 // and cycles with the position index so each position gets its own flavor.
 
@@ -200,7 +200,7 @@ const _domAlts = ['7sus4', '9'];
 final _tokenQualityRe = RegExp(r'^([b#]?)(VII|VI|IV|V|III|II|I)(.*)$');
 
 /// Alternate-shape version of the roman tokens for a given variation index.
-/// Keeps the tonic anchored (books mostly leave the 1 chord plain) and
+/// Keeps the tonic anchored (the 1 chord stays plain) and
 /// colors the rest.
 List<String> alternateTokens(List<String> roman, int variation) {
   return [

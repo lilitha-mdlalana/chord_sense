@@ -10,7 +10,7 @@ class Progression {
   });
 }
 
-// One playable shape for a chord — mirrors the book's "Position 1..5".
+// One playable shape for a chord ("Position 1..5" up the neck).
 class ChordVoicing {
   final String frets;
   final String fingers;
@@ -57,13 +57,13 @@ class ChordMeta {
   });
 }
 
-// A named progression from the songbooks, defined in roman numerals and
+// A named progression, defined in roman numerals and
 // resolvable into any of the 12 keys.
 class ProgressionDef {
   final String id;
   final String name; // e.g. 'I – vi – IV – V'
   final List<String> roman; // tokens the resolver understands, e.g. 'VIm', 'V7'
-  final String source; // catalog section, e.g. 'Classics Vol. 1'
+  final String source; // catalog section, e.g. 'Essentials I'
   final List<String> styles;
   final String description;
   final bool minorKey;
